@@ -48,7 +48,7 @@ export default function Page(){
             <tr key={key}>
               <td>{content.name}</td>
               <td>{content.is_series ? "Series" : "Movies"}</td>
-              <td>{content.no_of_episodes}</td>
+              <td>{content.no_of_episodes ? content.no_of_episodes : "-"}</td>
               <td>{content.is_done ? "Done" : "Not Done"}</td>
             </tr>
           )
