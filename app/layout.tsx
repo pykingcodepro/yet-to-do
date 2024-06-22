@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import './global.css';
 
 export const metadata: Metadata = {
   title: "Yet To Do",
@@ -12,7 +14,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <nav>
+          <h1>Yet To Do</h1>
+          <ul>
+            <li><Link href="./">Home</Link></li>
+            <li><Link href="movies">Movies</Link></li>
+            <li><Link href="comics">Comics</Link></li>
+            <li><Link href="books">Books</Link></li>
+            <li><Link href="animation">Animation</Link></li>
+            <li><Link href="projects">Projects</Link></li>
+          </ul>
+        </nav>
+        {children}
+      </body>
     </html>
   );
 }
