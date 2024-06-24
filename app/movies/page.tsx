@@ -31,12 +31,11 @@ export default function Page(){
   },[]);
 
   return(
-    <>
-      <h1>Movies</h1>
+    <div id="content">
       {isLoading 
       ? <p>Loading...</p>
     : (
-      <table border={2}>
+      <table>
         <thead>
           <th>Name</th>
           <th>Type</th>
@@ -45,7 +44,7 @@ export default function Page(){
         </thead>
         {contents.map((content, key) => {
           return (
-            <tr key={key}>
+            <tr key={key} aria-rowspan={5}>
               <td>{content.name}</td>
               <td>{content.is_series ? "Series" : "Movies"}</td>
               <td>{content.no_of_episodes ? content.no_of_episodes : "-"}</td>
@@ -56,6 +55,6 @@ export default function Page(){
       </table>
     )
     }
-    </>
+    </div>
   )
 }

@@ -147,6 +147,24 @@ nav > ul > li > a:hover{
 
 /* Navigation Bar - Ends */
 
+#content {
+  margin-top: 10vh;
+}
+
+
+/* Styling Table */
+table {
+  width: 100vw;
+  border:none; 
+}
+
+table tr > td {
+  padding-top:5vh;
+}
+
+table * {
+  text-align: center;
+}
 
 @media (prefers-color-scheme: dark) {
   html {
