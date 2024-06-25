@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
@@ -112,10 +115,13 @@ nav {
 
 nav > h1 {
   /* background: green; */
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  font-style: normal;
   width: 20vw;
   text-align: center;
   line-height: 15vh;
-  font-size: xx-large;
+  font-size: 3rem;
 }
 
 nav > ul {
@@ -134,10 +140,13 @@ nav > ul > li {
 
 nav > ul > li > a {
   display: inline-block;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 400;
   height: 8vh;
   padding: 0 1rem;
   line-height: 8vh;
   transition: .5s ease all;
+  font-size: 1.2rem;
 }
 
 nav > ul > li > a:hover{
@@ -158,8 +167,23 @@ table {
   border:none; 
 }
 
-table tr > td {
-  padding-top:5vh;
+table thead th, table tr td {
+  font-family: "Ubuntu", sans-serif;
+  font-style: normal;
+  font-size: 1.2rem;
+}
+
+table thead th {
+  font-weight: 400;
+  font-size: 1.2rem;
+  border-bottom: 2px gray solid;
+  padding-bottom: 2.5vh;
+}
+
+table tr td {
+  font-weight: 300;
+  font-size: 1.2rem;
+  padding-top:2.5vh;
 }
 
 table * {

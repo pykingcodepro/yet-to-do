@@ -8,7 +8,7 @@ export const GET = async (req: Request) => {
   try {
     const res = await db.listDocuments(
       process.env.APP_WRITE_DATABASE_ID as string,
-      "667673700010a80b0910",
+      process.env.APP_WRITE_MOVIES_COLLECTION_ID as string,
       [Query.orderAsc("$createdAt")]
     );
     return NextResponse.json(res.documents);

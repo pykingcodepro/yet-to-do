@@ -6,7 +6,7 @@ interface Content {
   $id: string,
   name: string,
   is_series: boolean,
-  no_of_episodes: number,
+  no_of_episodes: number | null,
   is_done: boolean
 }
 
