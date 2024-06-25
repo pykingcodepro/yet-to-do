@@ -18,10 +18,10 @@ export default function Page(){
   useEffect(()=> {
     const fetchContent = async() => {
       setIsLoading(true);
-      const response = await fetch('api/movies');
+      const response = await fetch('api/movies/', {method: "GET"});
       if(!response.ok){
         setIsLoading(false);
-        return;
+        console.log("Error in fetching")
       }
       const data = await response.json();
       setContents(data);
