@@ -21,14 +21,70 @@ export default function Page(){
       const response = await fetch('api/movies/', {method: "GET"});
       if(!response.ok){
         setIsLoading(false);
-        console.log("Error in fetching")
+        console.log("Error in fetching");
+        setContents([]);
+        return;
+
       }
       const data = await response.json();
       setContents(data);
       setIsLoading(false);
+
+      // For Development only
+      // setContents([
+      //   {
+      //     $id: "123",
+      //     name: "TBBT S2",
+      //     is_series: true,
+      //     no_of_episodes: 22,
+      //     is_done: true
+      //   },
+      //   {
+      //     $id: "456",
+      //     name: "The Batman",
+      //     is_series: false,
+      //     no_of_episodes: null,
+      //     is_done: false
+      //   }
+      // ]);
+      // setIsLoading(false);
+
     };
     fetchContent();
   },[]);
+
+  const handleToggle = async (content: Content) => {
+    const newContent = {...content, is_done: !content.is_done};
+    const response = await fetch(`/api/movies/${content.$id}`, {
+      method: "PUT",
+      headers: {"Conetent-type": "application/json"},
+      body: JSON.stringify(newContent)
+
+    });
+    // console.log(newContent);
+    setContents(contents.map(i => {
+      if (i.$id != content.$id)
+        return i;
+      else {
+        return newContent;
+      }
+    }))
+  }
+
+  const handleEdit = (content:Content) => {
+    console.log(content);
+  }
+  const handleDelete = async (id: string) => {
+    const response = await fetch(`api/movies/${id}`, {method: "DELETE"});
+    if (!response.ok){
+      console.log("Error in Deleting");
+      return;
+    }
+    setContents(contents.filter(content => {
+      if (content.$id != id)
+        return content;
+    }));
+  }
 
   return(
     <div id="content">
@@ -37,21 +93,30 @@ export default function Page(){
     : (
       <table>
         <thead>
-          <th>Name</th>
-          <th>Type</th>
-          <th>No of Episodes</th>
-          <th>is Done</th>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>No of Episodes</th>
+            <th>is Done</th>
+            <th>Actions</th>
+          </tr>
         </thead>
-        {contents.map((content, key) => {
-          return (
-            <tr key={key} aria-rowspan={5}>
-              <td>{content.name}</td>
-              <td>{content.is_series ? "Series" : "Movies"}</td>
-              <td>{content.no_of_episodes ? content.no_of_episodes : "-"}</td>
-              <td className={content.is_done ? "done" : "notDone"}><span>{content.is_done ? "Done" : "Not Done"}</span></td>
-            </tr>
-          )
-        })}
+        <tbody>
+          {contents.map((content, key) => {
+            return (
+              <tr key={key} aria-rowspan={5}>
+                <td>{content.name}</td>
+                <td>{content.is_series ? "Series" : "Movies"}</td>
+                <td>{content.no_of_episodes ? content.no_of_episodes : "-"}</td>
+                <td className={content.is_done ? "done" : "notDone"}><span onClick={() => handleToggle(content)}>{content.is_done ? "Done" : "Not Done"}</span></td>
+                <td>
+                  <button className="editBtn" type="submit" onClick={() => handleEdit(content)}>Edit</button>
+                  <button className="deleteBtn" onClick={() => handleDelete(content.$id)}>Delete</button>
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
       </table>
     )
     }
