@@ -14,6 +14,7 @@ export default function Page(){
 
   const [contents, setContents] = useState<Content[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedContent, setSelectedConetent] = useState<Content | null>(null);
 
   useEffect(()=> {
     const fetchContent = async() => {
@@ -71,9 +72,21 @@ export default function Page(){
     }))
   }
 
-  const handleEdit = (content:Content) => {
-    console.log(content);
-  }
+  const handleEditDone = async() => {
+    const response = await fetch(`./api/movies/${selectedContent?.$id}`, {
+      method: "PUT",
+      headers: {"Content-type": "application-type"},
+      body: JSON.stringify(selectedContent),
+    });
+    setContents(contents.map(content =>{
+      if (content.$id != selectedContent?.$id)
+        return content;
+      else
+        return selectedContent;
+    }));
+    setSelectedConetent(null);
+  };
+
   const handleDelete = async (id: string) => {
     const response = await fetch(`api/movies/${id}`, {method: "DELETE"});
     if (!response.ok){
@@ -105,14 +118,52 @@ export default function Page(){
           {contents.map((content, key) => {
             return (
               <tr key={key} aria-rowspan={5}>
-                <td>{content.name}</td>
-                <td>{content.is_series ? "Series" : "Movies"}</td>
-                <td>{content.no_of_episodes ? content.no_of_episodes : "-"}</td>
-                <td className={content.is_done ? "done" : "notDone"}><span onClick={() => handleToggle(content)}>{content.is_done ? "Done" : "Not Done"}</span></td>
-                <td>
-                  <button className="editBtn" type="submit" onClick={() => handleEdit(content)}>Edit</button>
-                  <button className="deleteBtn" onClick={() => handleDelete(content.$id)}>Delete</button>
-                </td>
+                {content.$id != selectedContent?.$id
+                ? (
+                  <>
+                    <td>{content.name}</td>
+                    <td>{content.is_series ? "Series" : "Movies"}</td>
+                    <td>{content.no_of_episodes ? content.no_of_episodes : "-"}</td>
+                    <td className={content.is_done ? "done" : "notDone"}><span onClick={() => handleToggle(content)}>{content.is_done ? "Done" : "Not Done"}</span></td>
+                    <td>
+                      <button className="editBtn" onClick={() => setSelectedConetent(content)}>Edit</button>
+                      <button className="deleteBtn" onClick={() => handleDelete(content.$id)}>Delete</button>
+                    </td>
+                  </>
+                ) : (
+                  <>
+                    <td><input className="nameInput" type="text" value={selectedContent.name} onChange={(e) => {
+                      setSelectedConetent({...selectedContent, name: e.target.value})
+                    }} /></td>
+                    <td>
+                      <select>
+                      {content.is_series 
+                      ? (
+                        <>
+                          <option>Series</option>
+                          <option>Movies</option>
+                        </>
+                      ) : (
+                        <>
+                          <option>Movies</option>
+                          <option>Series</option>
+                        </>
+                      )}
+                      </select>
+                    </td>
+                    <td>{selectedContent.no_of_episodes ? (
+                      <input type="number" value={selectedContent ? selectedContent?.no_of_episodes : 0} onChange={(e) => setSelectedConetent({...selectedContent, no_of_episodes: parseInt(e.target.value)})} />
+                    ):  (
+                      <input type="number" value={0} onChange={(e) => setSelectedConetent({...selectedContent, no_of_episodes: parseInt(e.target.value)})} />
+                    )}</td>
+                    <td className={content.is_done ? "done" : "notDone"}><span onClick={() => handleToggle(content)}>{content.is_done ? "Done" : "Not Done"}</span></td>
+                    <td>
+                      <button className="doneBtn" onClick={handleEditDone}>Done</button>
+                      <button className="deleteBtn" onClick={() => handleDelete(content.$id)}>Delete</button>
+                    </td>
+                  </>
+                )
+                }
               </tr>
             )
           })}
