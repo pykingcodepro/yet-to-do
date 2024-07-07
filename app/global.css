@@ -240,6 +240,16 @@ table tbody tr td .nameInput {
   color:white;
 }
 
+table tbody tr td .numberOfEpisodesInput {
+  padding: 0.4rem 0;
+  width: 4rem;
+  font-size: 1.2rem;
+  background-color: rgb(33, 33, 33);
+  border: 2px white solid;
+  border-radius: 16px;
+  color:white;
+}
+
 table * {
   text-align: center;
 }

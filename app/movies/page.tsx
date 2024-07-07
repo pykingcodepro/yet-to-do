@@ -123,7 +123,7 @@ export default function Page(){
                   <>
                     <td>{content.name}</td>
                     <td>{content.is_series ? "Series" : "Movies"}</td>
-                    <td>{content.no_of_episodes ? content.no_of_episodes : "-"}</td>
+                    <td>{content.is_series ? content.no_of_episodes : "-"}</td>
                     <td className={content.is_done ? "done" : "notDone"}><span onClick={() => handleToggle(content)}>{content.is_done ? "Done" : "Not Done"}</span></td>
                     <td>
                       <button className="editBtn" onClick={() => setSelectedConetent(content)}>Edit</button>
@@ -136,7 +136,12 @@ export default function Page(){
                       setSelectedConetent({...selectedContent, name: e.target.value})
                     }} /></td>
                     <td>
-                      <select>
+                      <select onChange={(e) => {
+                        if (e.target.value === "Movies") 
+                          setSelectedConetent({...selectedContent, is_series: false, no_of_episodes: null});
+                        else 
+                        setSelectedConetent({...selectedContent, is_series: true, no_of_episodes: 0});
+                      }}>
                       {content.is_series 
                       ? (
                         <>
@@ -151,10 +156,10 @@ export default function Page(){
                       )}
                       </select>
                     </td>
-                    <td>{selectedContent.no_of_episodes ? (
-                      <input type="number" value={selectedContent ? selectedContent?.no_of_episodes : 0} onChange={(e) => setSelectedConetent({...selectedContent, no_of_episodes: parseInt(e.target.value)})} />
+                    <td>{(selectedContent.no_of_episodes !=  null && selectedContent.is_series) ? (
+                      <input type="number" className="numberOfEpisodesInput" value={selectedContent ? selectedContent?.no_of_episodes : 0} onChange={(e) => setSelectedConetent({...selectedContent, no_of_episodes: parseInt(e.target.value)})} />
                     ):  (
-                      <input type="number" value={0} onChange={(e) => setSelectedConetent({...selectedContent, no_of_episodes: parseInt(e.target.value)})} />
+                      "-"
                     )}</td>
                     <td className={content.is_done ? "done" : "notDone"}><span onClick={() => handleToggle(content)}>{content.is_done ? "Done" : "Not Done"}</span></td>
                     <td>
