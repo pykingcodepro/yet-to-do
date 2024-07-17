@@ -24,11 +24,17 @@ export const GET = async (req: Request) => {
 export const POST = async(req: Request) => {
   try {
     const data = await req.json();
+    console.log(data)
     const res = await db.createDocument(
       process.env.APP_WRITE_DATABASE_ID as string,
       process.env.APP_WRITE_MOVIES_COLLECTION_ID as string,
       ID.unique(),
-      data
+      {
+        name: data.name,
+        is_series: data.is_series,
+        no_of_episodes: data.no_of_episodes,
+        is_done: data.is_done
+      }
     );
     return NextResponse.json({message: "ok"});
   } catch (err){

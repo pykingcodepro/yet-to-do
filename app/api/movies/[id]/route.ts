@@ -7,7 +7,8 @@ const db = new Databases(client);
 export async function PUT(req:Request, {params}: {params: {id: string}}){
   try {
     const id = params.id;
-    const data = await req.json();
+    const data = await req.json()
+    console.log(await data);
     const res = await db.updateDocument(
       process.env.APP_WRITE_DATABASE_ID as string,
       process.env.APP_WRITE_MOVIES_COLLECTION_ID as string,

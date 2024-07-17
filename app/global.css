@@ -254,7 +254,17 @@ table * {
   text-align: center;
 }
 
-
+.addBtn {
+  background-color: rgb(14, 85, 179);
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 25px;
+  font-size: 2rem;
+  color: white;
+  margin-top: 3rem;
+  margin-left: 5rem;
+}
 
 @media (prefers-color-scheme: dark) {
   html {
