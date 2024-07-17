@@ -11,12 +11,11 @@ export async function PUT(req:Request, {params}: {params: {id: string}}){
     console.log(await data);
     const res = await db.updateDocument(
       process.env.APP_WRITE_DATABASE_ID as string,
-      process.env.APP_WRITE_MOVIES_COLLECTION_ID as string,
+      process.env.APP_WRITE_COMICS_COLLECTION_ID as string,
       id,
       {
         name: data.name,
-        is_series: data.is_series,
-        no_of_episodes: data.no_of_episodes,
+        no_of_chapters: data.no_of_chapters,
         is_done: data.is_done
       }
     );
@@ -36,7 +35,7 @@ export async function DELETE(req: Request, {params}: {params: {id: string}}){
     const id = params.id;
     const res = await db.deleteDocument(
       process.env.APP_WRITE_DATABASE_ID as string,
-      process.env.APP_WRITE_MOVIES_COLLECTION_ID as string,
+      process.env.APP_WRITE_COMICS_COLLECTION_ID as string,
       id
     );
     return NextResponse.json({messase: "deleted"});
