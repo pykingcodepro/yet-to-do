@@ -9,7 +9,7 @@ export async function GET(req:Request) {
   try {
     const response = await db.listDocuments(
       process.env.APP_WRITE_DATABASE_ID as string,
-      process.env.APP_WRITE_COMICS_COLLECTION_ID as string,
+      process.env.APP_WRITE_ANIMATION_COLLECTION_ID as string,
       [Query.orderAsc("$createdAt")]
     );
 
@@ -30,14 +30,15 @@ export async function GET(req:Request) {
 export const POST = async(req: Request) => {
   try {
     const data = await req.json();
-    console.log(data);
+    console.log(data)
     const res = await db.createDocument(
       process.env.APP_WRITE_DATABASE_ID as string,
-      process.env.APP_WRITE_COMICS_COLLECTION_ID as string,
+      process.env.APP_WRITE_ANIMATION_COLLECTION_ID as string,
       ID.unique(),
       {
         name: data.name,
-        no_of_chapters: data.no_of_chapters,
+        no_of_episodes: data.no_of_episodes,
+        type: data.type,
         is_done: data.is_done
       }
     );
