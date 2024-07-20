@@ -19,6 +19,11 @@ export default function Page(){
   const fetchContent = async() => {
     setIsLoading(true);
     const response = await fetch('api/comics');
+    if(!response.ok){
+      setIsLoading(false);
+      return;
+
+    }
     setContents(await response.json());
     setIsLoading(false);
   }
@@ -118,7 +123,7 @@ export default function Page(){
               </tr>
             </thead>
             <tbody>
-              {contents.map((content, key) => {
+              {contents?.map((content, key) => {
                 return (
                   <tr key={key}>
                     {selectedContent?.$id === content.$id

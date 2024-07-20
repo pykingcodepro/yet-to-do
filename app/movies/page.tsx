@@ -145,7 +145,7 @@ export default function Page(){
             </tr>
           </thead>
           <tbody>
-            {contents.map((content, key) => {
+            {contents?.map((content, key) => {
               return (
                 <tr key={key} aria-rowspan={5}>
                   {content.$id != selectedContent?.$id
