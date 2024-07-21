@@ -13,7 +13,7 @@ export default function Page(){
 
   const [isLoading, setIsLoading] = useState(true);
   const [contents, setContents] = useState<Content[]>([]);
-  const [selectedContent, setSelectedConetent] = useState<Content | null>(null);
+  const [selectedContent, setSelectedContent] = useState<Content | null>(null);
   const [newAddContent, setNewAddContent] = useState<Content | null>(null);
 
   const fetchContent = async() => {
@@ -41,7 +41,6 @@ export default function Page(){
         return newContent;
       }
     }));
-    console.log(content.$id);
     const response = await fetch(`/api/animation/${content.$id}`, {
       method: "PUT",
       headers: {"Conetent-type": "application-type"},
@@ -77,7 +76,7 @@ export default function Page(){
       headers: {"Content-type" : "application-type"},
       body: JSON.stringify(selectedContent)
     });
-    setSelectedConetent(null);
+    setSelectedContent(null);
 
   }
 
@@ -136,7 +135,7 @@ export default function Page(){
                         <td>{(content.type === "Animation Series" || content.type === "Anime Series") ? content.no_of_episodes : "-"}</td>
                         <td className={content.is_done ? "done" : "notDone"}><span onClick={() => handleToggle(content)}>{content.is_done ? "Done" : "Not Done"}</span></td>
                         <td>
-                          <button className="editBtn" onClick={() => setSelectedConetent(content)}>Edit</button>
+                          <button className="editBtn" onClick={() => setSelectedContent(content)}>Edit</button>
                           <button className="deleteBtn" onClick={() => handleDelete(content.$id)}>Delete</button>
                         </td>
                       </>
@@ -144,15 +143,15 @@ export default function Page(){
                       <>
                         <td>
                           <input className="nameInput" type="text" value={selectedContent.name} onChange={(e) => {
-                          setSelectedConetent({...selectedContent, name: e.target.value})
+                          setSelectedContent({...selectedContent, name: e.target.value})
                         }} />
                         </td>
                         <td>
                           <select value={selectedContent.type} onChange={(e) => {
                             if ((e.target.value === "Animation Series" || e.target.value === "Anime Series"))
-                              setSelectedConetent({...selectedContent, type: e.target.value, no_of_episodes: 0});
+                              setSelectedContent({...selectedContent, type: e.target.value, no_of_episodes: 0});
                             else
-                              setSelectedConetent({...selectedContent, type: e.target.value, no_of_episodes: null});
+                              setSelectedContent({...selectedContent, type: e.target.value, no_of_episodes: null});
                               
                               
                           }}>
@@ -163,7 +162,7 @@ export default function Page(){
                           </select>
                         </td>
                         <td>{(selectedContent.no_of_episodes !=  null && (content.type === "Animation Series" || content.type === "Anime Series")) ? (
-                          <input type="number" className="numberOfEpisodesInput" value={selectedContent ? selectedContent?.no_of_episodes : 0} onChange={(e) => setSelectedConetent({...selectedContent, no_of_episodes: parseInt(e.target.value)})} />
+                          <input type="number" className="numberOfEpisodesInput" value={selectedContent ? selectedContent?.no_of_episodes : 0} onChange={(e) => setSelectedContent({...selectedContent, no_of_episodes: parseInt(e.target.value)})} />
                         ):  (
                           "-"
                         )}</td>

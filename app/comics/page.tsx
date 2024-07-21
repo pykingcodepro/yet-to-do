@@ -12,7 +12,7 @@ export default function Page(){
 
   const [isLoading, setIsLoading] = useState(true);
   const [contents, setContents] = useState<Content[]>([]);
-  const [selectedContent, setSelectedConetent] = useState<Content | null>(null);
+  const [selectedContent, setSelectedContent] = useState<Content | null>(null);
   const [newAddContent, setNewAddContent] = useState<Content | null>(null);
 
 
@@ -73,7 +73,7 @@ export default function Page(){
       else  
         return i;
     }));
-    setSelectedConetent(null);
+    setSelectedContent(null);
 
   }
 
@@ -131,11 +131,11 @@ export default function Page(){
                         <>
                           <td>
                             <input className="nameInput" type="text" value={selectedContent.name} onChange={(e) => {
-                            setSelectedConetent({...selectedContent, name: e.target.value})
+                            setSelectedContent({...selectedContent, name: e.target.value})
                           }} />
                           </td>
                           <td>
-                            <input type="number" className="numberOfEpisodesInput" value={selectedContent.no_of_chapters} onChange={(e) => setSelectedConetent({...selectedContent, no_of_chapters: parseInt(e.target.value)})} />
+                            <input type="number" className="numberOfEpisodesInput" value={selectedContent.no_of_chapters} onChange={(e) => setSelectedContent({...selectedContent, no_of_chapters: parseInt(e.target.value)})} />
                           </td>
                           <td className={content.is_done ? "done" : "notDone"}><span onClick={() => handleToggle(content)}>{content.is_done ? "Done" : "Not Done"}</span></td>
                           <td>
@@ -149,7 +149,7 @@ export default function Page(){
                           <td>{content.no_of_chapters}</td>
                           <td className={content.is_done ? "done" : "notDone"}><span onClick={() => handleToggle(content)}>{content.is_done ? "Done" : "Not Done"}</span></td>
                           <td>
-                            <button className="editBtn" onClick={() => setSelectedConetent(content)}>Edit</button>
+                            <button className="editBtn" onClick={() => setSelectedContent(content)}>Edit</button>
                             <button className="deleteBtn" onClick={() => handleDelete(content.$id)}>Delete</button>
                           </td>
                         </>
