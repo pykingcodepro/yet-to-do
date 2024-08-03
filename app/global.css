@@ -182,12 +182,48 @@ nav > ul > li > a:hover{
   display: flex;
   justify-content: center;
   align-items: center;
+}
 
+#grid-content #moviesCard {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 116, 57, 0.7),
+    rgba(212, 64, 0, 0.7) 
+  );
+}
+
+#grid-content #comicsCard {
+  background: linear-gradient(
+    135deg,
+    rgba(179, 255, 5, 0.7),
+    rgba(115, 186, 0, 0.7) 
+  );
+}
+
+#grid-content #animationCard {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 68, 68, 0.7),
+    rgba(208, 0, 0, 0.7) 
+  );
+}
+
+#grid-content #booksCard {
+  background: linear-gradient(
+    135deg,
+    rgba(57, 116, 255, 0.7),
+    rgba(0, 65, 218, 0.7) 
+  );
+}
+
+#grid-content .card:hover > .title {
+  font-size: 1.7rem;
 }
 
 #grid-content .card .title {
   font-size: 1.5rem;
   font-family: 'Ubuntu', 'sans-serif';
+  transition: all ease .2s;
 }
 
 /* Home Content Ends */
@@ -304,4 +340,3 @@ table * {
     font-size: larger;
   }
 }
-
