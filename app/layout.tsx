@@ -21,8 +21,8 @@ export default function RootLayout({
             <li><Link href="./">Home</Link></li>
             <li><Link href="movies">Movies</Link></li>
             <li><Link href="comics">Comics</Link></li>
-            <li><Link href="books">Books</Link></li>
             <li><Link href="animation">Animation</Link></li>
+            <li><Link href="books">Books</Link></li>
           </ul>
         </nav>
         {children}
