@@ -23,7 +23,6 @@ export default function RootLayout({
             <li><Link href="comics">Comics</Link></li>
             <li><Link href="books">Books</Link></li>
             <li><Link href="animation">Animation</Link></li>
-            <li><Link href="projects">Projects</Link></li>
           </ul>
         </nav>
         {children}
